@@ -17,9 +17,9 @@ def refund():
 @app.route('/handle_refund/<string:refund_date>')
 def handle_refund(refund_date):
    if refund_date=="Nov_2023":
-      df = pd.read_csv('medicine_management/src/static/csvs/ex_army_ex_nov_2023.csv')
+      df = pd.read_csv('static/csvs/ex_army_ex_nov_2023.csv')
    elif refund_date=="Dec_2023":
-      df = pd.read_csv('medicine_management/src/static/csvs/ex_army_ex_dec_2023.csv')
+      df = pd.read_csv('static/csvs/ex_army_ex_dec_2023.csv')
    
    html = generate_html(df)
 
