@@ -9,13 +9,6 @@ app = Flask(__name__)
 def home():
    return render_template("home.html")
 
-# @app.route('/expiry')
-# def expiry():
-#     df = pd.read_csv('/home/abhishek/abhi/medi_store/stock_expiry_nov_dec.csv')
-#     html = generate_html(df)
-#     return render_template_string(html)
-
-
 @app.route('/refund')
 def refund():
    return render_template("refund.html")
@@ -33,4 +26,4 @@ def handle_refund(refund_date):
    return render_template_string(html)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(debug=False, port=8080)
