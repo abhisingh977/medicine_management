@@ -61,6 +61,26 @@
     .refund-button:hover {
         background-color: #333; /* Darker gray on hover */
     }
+    
+    form {
+        background-color: #dadada; /* Light gray shading */
+        padding: 20px; /* Add padding for spacing */
+        border-radius: 10px; /* Optional: Add rounded corners */
+        display: inline-block;
+    }
+        /* Add these styles to make the form elements larger */
+        #nearExpiryMedicine {
+        width: 300px; /* Adjust the width as needed */
+        height: 30px; /* Adjust the height as needed */
+        font-size: 16px; /* Adjust the font size as needed */
+    }
+
+    input[type="submit"] {
+        width: 150px; /* Adjust the width as needed */
+        height: 30px; /* Adjust the height as needed */
+        font-size: 16px; /* Adjust the font size as needed */
+    }
+
     </style>
 </head>
 
@@ -74,19 +94,52 @@
     <section>
         <h2>Refund Information</h2>
         <p>Welcome to the refund process for EX ARMY MEDICAL STORE. If you have recently returned near-expiry medicines, our team will process your refund promptly. We appreciate your business and strive to provide excellent service.</p>
-
-        <!-- Add the rest of your refund information here -->
-
         <p>For any inquiries or concerns, please <a href="contact.html">contact us</a>.</p>
+
+        <form action="{{ url_for('handle_file_upload') }}" method="post" enctype="multipart/form-data">
+            <label for="nearExpiryMedicine">Upload Near Expiry Medicine File:</label>
+            <input type="file" id="nearExpiryMedicine" name="nearExpiryMedicine" accept=".xls, .xlsx, .csv, .txt, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/plain">
+            <input type="submit" value="Upload">
+        </form>
+
     </section>
 
-    <!-- Refund Buttons for Nov, Dec 2023, Jan, Feb 2024 -->
-    <a href="{{ url_for('handle_refund', refund_date='Nov_2023') }}" class="refund-button">Nov 2023 Refund</a>
-    <a href="{{ url_for('handle_refund', refund_date='Dec_2023') }}" class="refund-button">Dec 2023 Refund</a>
-    <a href="{{ url_for('handle_refund', refund_date='Jan_2024') }}" class="refund-button">Jan 2024 Refund</a>
-    <a href="{{ url_for('handle_refund', refund_date='Feb_2024') }}" class="refund-button">Feb 2024 Refund</a>
+        <div style="display: flex; justify-content: space-between; max-width: 800px; margin: 0 auto; padding: 20px;">
+            <div style="flex: 1; text-align: center;">
+                <h3>Projected Loss</h3>
+                <p style="color: red;"><strong>Rs 50,000</strong></p>
+            </div>
+            <div style="flex: 1; text-align: center;">
+                <h3>Projected Loss Recovery</h3>
+                <p style="color: green;"><strong>Rs 35,000</strong></p>
+            </div>
+            <div style="flex: 1; text-align: center;">
+                <h3>Final Profit</h3>
+                <p style="color: darkgreen;"><strong>Rs 30,000 </strong></p>
+            </div>
+        </div>
 
-
+<table style="width: 100%; max-width: 800px; margin: 20px auto; border-collapse: collapse; text-align: center; border: 1px solid #ddd;">
+    <thead>
+        <tr>
+            <th style="vertical-align: middle; border: 1px solid #ddd;">Refund Date</th>
+            <th style="vertical-align: middle; border: 1px solid #ddd;">Expired Medicine</th>
+            <th style="vertical-align: middle; border: 1px solid #ddd;">Projected Loss</th>
+            <th style="vertical-align: middle; border: 1px solid #ddd;">Projected Loss Recovery</th>
+            <th style="vertical-align: middle; border: 1px solid #ddd;">Final Profit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for refund_date, values in refund_data.items() %}
+        <tr style="border: 1px solid #ddd;">
+            <td style="border: 1px solid #ddd;">{{ refund_date }}</td>
+            <td style="border: 1px solid #ddd;"><a href="{{ url_for('handle_refund', refund_date=refund_date) }}" class="refund-button">Start Refund</a></td>
+            <td style="border: 1px solid #ddd; vertical-align: middle; color: red;">{{ values.loss }}</td>
+            <td style="border: 1px solid #ddd; vertical-align: middle; color: green">{{ values.recovery }}</td>
+            <td style="border: 1px solid #ddd; vertical-align: middle; color: darkgreen;">{{ values.profit }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 </body>
-
 </html>

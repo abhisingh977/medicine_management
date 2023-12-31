@@ -1,3 +1,5 @@
-.dataTables_filter{
+.dataTables_filter {
     float: left !important;
-    }
+    font-size: 40px; /* Adjust the size to your preference */
+    font-weight: bold; /* Make the font bold */
+}
